@@ -10,6 +10,11 @@ function App() {
   const [passwordError, setPasswordError] = useState('');
   const [hasAccount, setHasAccount] = useState(false);
 
+  const clearInputs = () => {
+    setEmail('');
+    setPassword('');
+  }
+
   const handleLogin = () => {
     fire
       .auth()
@@ -45,7 +50,23 @@ function App() {
       })
   }
 
-  const handleLogout
+  const handleLogout = () => {
+    fire.auth().signOut();
+  }
+
+  const authListener = () => {
+    fire.auth().onAuthStateChanged(user => {
+      if(user) {
+        setUser(user);
+      } else {
+        setUser("");
+      }
+    })
+  }
+
+  useEffect(() => {
+    authListener();
+  }, []);
 
   return (
     <div className="App">
