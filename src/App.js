@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import fire from './fire'
 import './App.css';
+import Login from './Login'
 
 function App() {
   const [user, setUser] = useState('')
@@ -21,6 +22,7 @@ function App() {
   }
 
   const handleLogin = () => {
+    clearErrors();
     fire
       .auth()
       .signInWithEmailAndPassword(email, password)
@@ -39,6 +41,7 @@ function App() {
   }
 
   const handleSignup = () => {
+    clearErrors();
     fire
       .auth()
       .createUserWithEmailAndPassword(email, password)
@@ -62,6 +65,7 @@ function App() {
   const authListener = () => {
     fire.auth().onAuthStateChanged(user => {
       if(user) {
+        clearInputs();
         setUser(user);
       } else {
         setUser("");
@@ -75,7 +79,7 @@ function App() {
 
   return (
     <div className="App">
-      <h1>Hello World</h1>
+      <Login email={email} setEmail={setEmail} password={password} setPassword={setPassword} handleLogin={handleLogin} handleSignup={handleSignup} hasAccount={hasAccount} setHasAccount={setHasAccount} emailError={emailError} passwordError={passwordError} />
     </div>
   );
 }
