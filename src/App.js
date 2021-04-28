@@ -28,6 +28,25 @@ function App() {
       })
   }
 
+  const handleSignup = () => {
+    fire
+      .auth()
+      .createUserWithEmailAndPassword(email, password)
+      .catch(err => {
+        switch(err.code) {
+          case "auth/email-already-in-use":
+          case "auth/invalid-email":
+            setEmailError(err.message);
+            break;
+          case "auth/weak-password":
+            setPasswordError(err.message);
+            break;
+        }
+      })
+  }
+
+  const handleLogout
+
   return (
     <div className="App">
       <h1>Hello World</h1>
