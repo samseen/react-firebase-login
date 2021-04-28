@@ -15,6 +15,11 @@ function App() {
     setPassword('');
   }
 
+  const clearErrors = () => {
+    setEmailError('');
+    setPasswordError('');
+  }
+
   const handleLogin = () => {
     fire
       .auth()
